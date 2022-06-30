@@ -1,2 +1,2 @@
 # DS-A
-Set of Data Structure and Algorithms Problems
+Data Structure and Algorithms Problems.

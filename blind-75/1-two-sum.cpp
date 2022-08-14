@@ -34,78 +34,74 @@ Constraints:
 */
 #include <bits/stdc++.h>
 #include <iostream>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
-  vector<int> twoSumSorted(vector<int> &nums, int target) {
-    int low = 0, high = nums.size() - 1;
-    vector<int> result;
+  public:
+    vector<int> twoSumSorted(vector<int>& nums, int target) {
+        int low = 0, high = nums.size() - 1;
+        vector<int> result;
 
-    sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end());
 
-    while (low < high) {
-      if (nums[low] + nums[high] == target) {
-        result.push_back(nums[low]);
-        result.push_back(nums[high]);
+        while (low < high) {
+            if (nums[low] + nums[high] == target) {
+                result.push_back(nums[low]);
+                result.push_back(nums[high]);
+                return result;
+            } else if (nums[low] + nums[high] > target) {
+                high--;
+            } else {
+                low++;
+            }
+        }
+
+        result.push_back(-1);
+        result.push_back(-1);
         return result;
-      } else if (nums[low] + nums[high] > target) {
-        high--;
-      } else {
-        low++;
-      }
     }
 
-    result.push_back(-1);
-    result.push_back(-1);
-    return result;
-  }
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> map;
+        vector<int> res;
 
-  vector<int> twoSum(vector<int> &nums, int target) {
-    unordered_map<int, int> map;
-    vector<int> res;
+        for (int i = 0; i < nums.size(); i++) {
+            if (map.find(target - nums[i]) != map.end() && map[target - nums[i]] != i) {
+                res.push_back(map[target - nums[i]]);
+                res.push_back(i);
+                return res;
+            }
 
-    for (int i = 0; i < nums.size(); i++) {
-      if (map.find(target - nums[i]) != map.end() &&
-          map[target - nums[i]] != i) {
-        res.push_back(map[target - nums[i]]);
-        res.push_back(i);
+            map[nums[i]] = i;
+        }
+
+        res.push_back(-1);
         return res;
-      }
-
-      map[nums[i]] = i;
     }
-
-    res.push_back(-1);
-    return res;
-  }
 };
 
 int main() {
-  vector<int> input;
-  int n, target;
-  Solution solution;
+    vector<int> input;
+    int n, target;
+    Solution solution;
 
-  cout << "number of elements" << endl;
-  cin >> n;
-  cout << "input array" << endl;
+    cout << "number of elements" << endl;
+    cin >> n;
+    cout << "input array" << endl;
 
-  for (int i = 0; i < n; i++) {
-    int temp;
-    cin >> temp;
-    input.push_back(temp);
-  }
+    for (int i = 0; i < n; i++) {
+        int temp;
+        cin >> temp;
+        input.push_back(temp);
+    }
 
-  cout << "target sum" << endl;
-  cin >> target;
+    cout << "target sum" << endl;
+    cin >> target;
 
-  vector<int> res = solution.twoSum(input, target);
+    vector<int> res = solution.twoSum(input, target);
 
-  cout << res[0] << "\t" << res[1] << endl;
+    cout << res[0] << "\t" << res[1] << endl;
 
-  return 0;
+    return 0;
 }

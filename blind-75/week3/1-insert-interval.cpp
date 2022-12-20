@@ -42,66 +42,13 @@ Constraints:
 using namespace std;
 
 class Solution {
-  private:
-  public:
-    vector<vector<int>> insert(vector<vector<int>> &intervals, vector<int> &newInterval) {
-        if (intervals.size() == 0) {
-            return {newInterval};
-        }
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> result;
+        
 
-        int newInterval_start = newInterval[0];
-        int newInterval_end = newInterval[1];
-        vector<vector<int>> res;
 
-        int merge_start = -1, merge_end = -1;
-        for (auto interval : intervals) {
-            int curr_start = interval[0];
-            int curr_end = interval[1];
-
-            if (merge_start != -1 and merge_end != -1) {
-                res.push_back({merge_start, merge_end});
-                merge_start = merge_end = -2;
-            }
-
-            if (newInterval_start > curr_end or newInterval_end < curr_start) {
-
-                if (merge_start != -1 and merge_end == -1) {
-                    merge_end = newInterval_end;
-                    res.push_back({merge_start, merge_end});
-                    merge_start = merge_end = -2;
-                }
-
-                res.push_back(interval);
-                continue;
-            }
-
-            if (newInterval_start >= curr_start and newInterval_end <= curr_end) {
-                res.push_back(interval);
-                merge_start = merge_end = -2;
-                continue;
-            }
-
-            if (newInterval_start >= curr_start) {
-                merge_start = curr_start;
-                continue;
-            }
-
-            if (newInterval_end <= curr_end) {
-                merge_end = curr_end;
-                continue;
-            }
-        }
-
-        if (merge_start != -1 and merge_end == -1) {
-            merge_end = newInterval_end;
-            res.push_back({merge_start, merge_end});
-        }
-
-        if (merge_start == -1 and merge_end == -1) {
-            res.push_back({newInterval_start, newInterval_end});
-        }
-
-        return res;
+        return result;
     }
 };
 

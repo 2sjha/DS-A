@@ -42,21 +42,21 @@ Constraints:
 using namespace std;
 
 class Solution {
-public:
-    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+  public:
+    vector<vector<int>> insert(vector<vector<int>> &intervals, vector<int> &newInterval) {
         vector<vector<int>> result;
 
         int merge = 0;
-        for(auto currInterval: intervals) {
-            if((newInterval[0] >= currInterval[0] and newInterval[0] <= currInterval[1]) or
-            (newInterval[1] >= currInterval[0] and newInterval[1] <= currInterval[1]) or
-            (newInterval[0] <=currInterval[0] and newInterval[1] >= currInterval[1]) or
-            (newInterval[0] >= currInterval[0] and newInterval[1] <= currInterval[1])) {
+        for (auto currInterval : intervals) {
+            if ((newInterval[0] >= currInterval[0] and newInterval[0] <= currInterval[1]) or
+                (newInterval[1] >= currInterval[0] and newInterval[1] <= currInterval[1]) or
+                (newInterval[0] <= currInterval[0] and newInterval[1] >= currInterval[1]) or
+                (newInterval[0] >= currInterval[0] and newInterval[1] <= currInterval[1])) {
                 newInterval[0] = min(newInterval[0], currInterval[0]);
                 newInterval[1] = max(newInterval[1], currInterval[1]);
                 merge = 2;
             } else {
-                if(merge == 2) {
+                if (merge == 2) {
                     result.push_back(newInterval);
                     merge = 1;
                 }
@@ -64,7 +64,7 @@ public:
             }
         }
 
-        if(merge == 0) {
+        if (merge == 0) {
             result.push_back(newInterval);
         }
 

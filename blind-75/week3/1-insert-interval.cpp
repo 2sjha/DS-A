@@ -46,10 +46,27 @@ public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
         vector<vector<int>> result;
 
-        for(auto interval: intervals) {
-
+        int merge = 0;
+        for(auto currInterval: intervals) {
+            if((newInterval[0] >= currInterval[0] and newInterval[0] <= currInterval[1]) or
+            (newInterval[1] >= currInterval[0] and newInterval[1] <= currInterval[1]) or
+            (newInterval[0] <=currInterval[0] and newInterval[1] >= currInterval[1]) or
+            (newInterval[0] >= currInterval[0] and newInterval[1] <= currInterval[1])) {
+                newInterval[0] = min(newInterval[0], currInterval[0]);
+                newInterval[1] = max(newInterval[1], currInterval[1]);
+                merge = 2;
+            } else {
+                if(merge == 2) {
+                    result.push_back(newInterval);
+                    merge = 1;
+                }
+                result.push_back(currInterval);
+            }
         }
 
+        if(merge == 0) {
+            result.push_back(newInterval);
+        }
 
         return result;
     }

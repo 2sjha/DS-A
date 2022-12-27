@@ -6,7 +6,6 @@ Given an array nums of size n, return the majority element.
 The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the
 majority element always exists in the array.
 
- 
 
 Example 1:
 
@@ -18,7 +17,6 @@ Example 2:
 Input: nums = [2,2,1,1,1,2,2]
 Output: 2
 
- 
 
 Constraints:
 
@@ -37,7 +35,7 @@ using namespace std;
 
 class Solution {
   public:
-    int majorityElement(vector<int>& nums) {
+    int majorityElement(vector<int> &nums) {
         int size = nums.size();
         unordered_map<int, int> map;
         for (int i : nums) {
@@ -54,7 +52,7 @@ class Solution {
         return max_elem;
     }
 
-    int majorityElementInO1Space(vector<int>& nums) {
+    int majorityElementInO1Space(vector<int> &nums) {
         int size = nums.size();
         int major, count_major;
         for (int i = 0; i < size - 1; ++i) {

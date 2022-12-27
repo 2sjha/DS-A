@@ -19,7 +19,6 @@ supported natively. You may simulate a stack using a list or deque (double-ended
 you use only a stack's standard operations.
 
 
-
 Example 1:
 
 Input
@@ -37,14 +36,11 @@ myQueue.pop(); // return 1, queue is [2]
 myQueue.empty(); // return false
 
 
-
 Constraints:
 
     1 <= x <= 9
     At most 100 calls will be made to push, pop, peek, and empty.
     All the calls to pop and peek are valid.
-
-
 
 Follow-up: Can you implement the queue such that each operation is amortized O(1) time complexity?
 In other words, performing n operations will take overall O(n) time even if one of those operations
@@ -60,7 +56,9 @@ may take longer.
  * int param_3 = obj->peek();
  * bool param_4 = obj->empty();
  */
+
 #include <stack>
+using namespace std;
 
 class MyQueue {
     stack<int> s1;

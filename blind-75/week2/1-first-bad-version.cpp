@@ -11,7 +11,9 @@ all the following ones to be bad.
 You are given an API bool isBadVersion(version) which returns whether version is bad. Implement a
 function to find the first bad version. You should minimize the number of calls to the API.
 
+
 Example 1:
+
 Input: n = 5, bad = 4
 Output: 4
 Explanation:
@@ -21,36 +23,37 @@ call isBadVersion(4) -> true
 Then 4 is the first bad version.
 
 Example 2:
+
 Input: n = 1, bad = 1
 Output: 1
 
-Constraints:
-    1 <= bad <= n <= 231 - 1
 
+Constraints:
+
+    1 <= bad <= n <= 231 - 1
 */
 // The API isBadVersion is defined for you.
 // bool isBadVersion(int version);
 
 class Solution {
-public:
+  public:
     int firstBadVersion(int n) {
         int low = 1;
         int high = n;
         int mid = 0;
-        while(low <= high) {
-            mid = low + ((high - low)/2);
+        while (low <= high) {
+            mid = low + ((high - low) / 2);
             bool curr = isBadVersion(mid);
-            bool next = isBadVersion(mid+1);
-            if(curr == false && next == true) {
-                return mid+1;
-            }
-            else if((curr or next) == false) {
-                low= mid +1;
-            } else if((curr and next) == true) {
-                high = mid -1;
+            bool next = isBadVersion(mid + 1);
+            if (curr == false && next == true) {
+                return mid + 1;
+            } else if ((curr or next) == false) {
+                low = mid + 1;
+            } else if ((curr and next) == true) {
+                high = mid - 1;
             }
         }
-        
+
         return mid;
     }
 };

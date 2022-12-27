@@ -15,7 +15,6 @@ the aforementioned pixels with color.
 Return the modified image after performing the flood fill.
 
 
-
 Example 1:
 
 Input: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2
@@ -30,7 +29,6 @@ Example 2:
 Input: image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0
 Output: [[0,0,0],[0,0,0]]
 Explanation: The starting pixel is already colored 0, so no changes are made to the image.
-
 
 
 Constraints:

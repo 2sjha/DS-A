@@ -8,6 +8,7 @@ According to the definition of LCA on Wikipedia: “The lowest common ancestor i
 nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to
 be a descendant of itself).”
 
+
 Example 1:
 Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
 Output: 6
@@ -23,37 +24,30 @@ Example 3:
 Input: root = [2,1], p = 2, q = 1
 Output: 2
 
+
 Constraints:
     The number of nodes in the tree is in the range [2, 105].
     -109 <= Node.val <= 109
     All Node.val are unique.
     p != q
     p and q will exist in the BST.
- */
+*/
 
 #include <iostream>
 #include <vector>
+using namespace std;
 
 // Definition for a binary tree node.
 struct TreeNode {
     int val;
-    TreeNode* left;
-    TreeNode* right;
+    TreeNode *left;
+    TreeNode *right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 
 class Solution {
   private:
-    bool find_path(TreeNode* root, TreeNode* node, std::vector<TreeNode*>& path_node) {
+    bool find_path(TreeNode *root, TreeNode *node, vector<TreeNode *> &path_node) {
         if (root == nullptr || node == nullptr) {
             return false;
         }
@@ -76,22 +70,22 @@ class Solution {
     }
 
   public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        TreeNode* lca = nullptr;
-        std::vector<TreeNode*> path_p, path_q;
+    TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
+        TreeNode *lca = nullptr;
+        std::vector<TreeNode *> path_p, path_q;
         find_path(root, p, path_p);
         find_path(root, q, path_q);
 
-        int i = path_p.size()-1, j = path_q.size()-1;
+        int i = path_p.size() - 1, j = path_q.size() - 1;
         while (i >= 0 && j >= 0) {
             if (path_p[i]->val != path_q[j]->val) {
                 break;
             }
-            i--;j--;
+            i--;
+            j--;
         }
 
         lca = path_p[i + 1];
         return lca;
-
     }
 };

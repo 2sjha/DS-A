@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+// CS6363: DAA - Homework 3 Problem 1
 class Solution {
   public:
     int minOnes(int n) {

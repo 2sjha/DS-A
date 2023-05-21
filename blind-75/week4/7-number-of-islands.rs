@@ -110,20 +110,19 @@ impl Solution {
 }
 
 fn main() {
+    let mut res: i32;
     let grid = vec![
         vec!['1', '1', '1', '1', '0'],
         vec!['1', '1', '0', '1', '0'],
         vec!['1', '1', '0', '0', '0'],
         vec!['0', '0', '0', '0', '0'],
     ];
-
     let grid2 = vec![
         vec!['1', '1', '0', '0', '0'],
         vec!['1', '1', '0', '0', '0'],
         vec!['0', '0', '1', '0', '0'],
         vec!['0', '0', '0', '1', '1'],
     ];
-
     let grid3 = vec![
         vec![
             '1', '1', '1', '1', '1', '0', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '1',
@@ -207,13 +206,15 @@ fn main() {
         ],
     ];
 
-    let mut res: i32;
     res = Solution::num_islands(grid);
+    assert_eq!(2, res);
     println!("{}", res);
 
     res = Solution::num_islands(grid2);
+    assert_eq!(3, res);
     println!("{}", res);
 
     res = Solution::num_islands(grid3);
+    assert_eq!(1, res);
     println!("{}", res);
 }

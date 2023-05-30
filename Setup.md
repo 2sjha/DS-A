@@ -2,13 +2,13 @@
 
 I'm using the following:
 
--   OS : Manjaro
--   Editor : Code - OSS
+-   OS : Manjaro and WSL on Windows 11
+-   Editor : Code - OSS and VSCode
 -   C++ Extensions in VSCode : C/C++ Runner by frannck94, which inturn has dependencies on C/C++ by ms-vscode and CodeLLDB by vadimcn
 -   Formatting : clang-format
 -   Debugger: gdb
 
-## Setup Steps
+## Setup Steps on Manjaro
 
 -   Install Code - OSS and gdb using pacman/yay
 -   Install CodeLLDB extension from marketplace.

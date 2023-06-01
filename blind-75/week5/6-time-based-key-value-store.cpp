@@ -53,12 +53,12 @@ Constraints:
 #include <iostream>
 using namespace std;
 
-class TmapValue {
+class OldTmapValue {
     set<int> timestamps;
     unordered_map<int, string> ts_value_pairs;
 
   public:
-    TmapValue() {
+    OldTmapValue() {
         timestamps = set<int>();
         ts_value_pairs = unordered_map<int, string>();
     }
@@ -88,15 +88,15 @@ class TmapValue {
     friend class TimeMap;
 };
 
-class TimeMap {
-    unordered_map<string, TmapValue> tmap;
+class OldTimeMap {
+    unordered_map<string, OldTmapValue> tmap;
 
   public:
-    TimeMap() { tmap = unordered_map<string, TmapValue>(); }
+    TimeMap() { tmap = unordered_map<string, OldTmapValue>(); }
 
     void set(string key, string value, int timestamp) {
         if (tmap.find(key) == tmap.end()) {
-            tmap[key] = TmapValue();
+            tmap[key] = OldTmapValue();
         }
 
         tmap[key].insert(value, timestamp);
@@ -109,6 +109,40 @@ class TimeMap {
             return "";
         } else {
             return tmap[key].get(timestamp);
+        }
+    }
+};
+
+class TimeMap {
+    unordered_map<string, map<int, string>> tmap;
+
+  public:
+    TimeMap() { tmap = unordered_map<string, map<int, string>>(); }
+
+    void set(string key, string value, int timestamp) {
+        if (tmap.find(key) == tmap.end()) {
+            tmap[key] = map<int, string>();
+        }
+
+        tmap[key][timestamp] = value;
+    }
+
+    string get(string key, int timestamp) {
+        if (tmap.find(key) == tmap.end()) {
+            return "";
+        } else if (tmap[key].find(timestamp) != tmap[key].end()) {
+            return tmap[key][timestamp];
+        } else {
+            map<int, string>::iterator closest = tmap[key].lower_bound(timestamp);
+            if (closest == tmap[key].end()) {
+                closest--;
+                return tmap[key][closest->first];
+            } else if (closest == tmap[key].begin()) {
+                return "";
+            } else {
+                closest--;
+                return tmap[key][closest->first];
+            }
         }
     }
 };

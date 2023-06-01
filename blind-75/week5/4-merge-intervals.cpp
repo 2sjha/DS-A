@@ -44,6 +44,7 @@ void print2Dmatrix(vector<vector<int>> res) {
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 class Solution {
@@ -72,7 +73,8 @@ class Solution {
                     ++i;
                 } else {
                     merged.push_back(curr_interval);
-                    curr_interval = intervals[++i];
+                    ++i;
+                    curr_interval = intervals[i];
                 }
             } else {
                 merged.push_back(curr_interval);

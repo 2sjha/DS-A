@@ -31,12 +31,11 @@ impl Solution {
         (next[0] <= curr[1]) || (next[1] <= curr[1])
     }
 
-    pub fn merge(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        let mut intervals_clone = intervals.clone();
+    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         let mut merged: Vec<Vec<i32>> = Vec::new();
-        intervals_clone.sort_by(|a, b| a[0].cmp(&b[0]));
+        intervals.sort_by(|a, b| a[0].cmp(&b[0]));
 
-        let mut intervals_iter = intervals_clone.iter_mut();
+        let mut intervals_iter = intervals.iter_mut();
         let mut curr_interval = intervals_iter.next().unwrap();
         for interval in intervals_iter {
             if Self::overlap(&curr_interval, interval) {

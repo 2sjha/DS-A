@@ -29,7 +29,7 @@ Constraints:
 #include <iostream>
 using namespace std;
 
-void print2Dmatrix(vector<vector<int>> res) {
+template <typename T> void print2Dmatrix(vector<vector<T>> res) {
     if (res.empty()) {
         cout << "Empty!" << endl;
         return;
@@ -39,7 +39,7 @@ void print2Dmatrix(vector<vector<int>> res) {
     int c = res[0].size();
 
     for (auto row : res) {
-        for (int val : row) {
+        for (auto val : row) {
             cout << val << " ";
         }
         cout << endl;

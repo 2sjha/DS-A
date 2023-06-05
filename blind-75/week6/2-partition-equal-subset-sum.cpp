@@ -30,6 +30,9 @@ using namespace std;
 
 class Solution {
   public:
+    // Use SubsetSum DP.
+    // Check if any subset can sum up to half of total sum
+    // If Yes, then the {nums set} - {that subset} is the other partition.
     bool canPartition(vector<int> &nums) {
         if (nums.empty()) {
             return true;
@@ -39,29 +42,30 @@ class Solution {
         for (int i = 0; i < nums.size(); i++) {
             total_sum += nums[i];
         }
+        if (total_sum % 2 != 0) {
+            return false;
+        }
+        int target_sum = total_sum / 2;
 
-        vector<vector<int>> partial_sum;
+        vector<vector<bool>> dp;
+        for (int i = 0; i <= nums.size(); ++i) {
+            dp.push_back(vector<bool>(target_sum + 1, false));
+        }
         for (int i = 0; i < nums.size(); ++i) {
-            partial_sum.push_back(vector<int>(nums.size(), 0));
+            dp[i][0] = true;
         }
 
-        for (int i = 0; i < nums.size(); ++i) {
-            for (int j = 0; j < nums.size(); ++j) {
-                for (int k = i; k <= j; ++k) {
-                    partial_sum[i][j] += nums[k];
+        for (int i = 1; i <= nums.size(); ++i) {
+            for (int j = 1; j <= target_sum; j++) {
+                if (nums[i - 1] > j) {
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]];
                 }
             }
         }
 
-        for (int i = 0; i < nums.size(); ++i) {
-            for (int j = 0; j < nums.size(); ++j) {
-                if (total_sum - partial_sum[i][j] == partial_sum[i][j]) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return dp[nums.size()][target_sum];
     }
 };
 

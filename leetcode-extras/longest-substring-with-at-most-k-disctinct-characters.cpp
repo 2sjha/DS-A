@@ -1,4 +1,6 @@
 /*
+https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
+
 Given a string, find the longest substring that contains only two unique characters.
 For example, given "abcbbbbcccbdddadacb", the longest substring that contains 2 unique character is
 "bcbbbbcccb".

@@ -1,0 +1,27 @@
+{
+  "Rs fn main": {
+    "prefix": "rslcmain",
+    "body": [
+      "/*",
+      "",
+      "*/",
+      "",
+      "struct Solution;",
+      "impl Solution {",
+      "\tpub fn function(nums: Vec<i32>) -> i32 {",
+      "\t\t0",
+      "\t}",
+      "}",
+      "",
+      "fn main() {",
+      "\tlet mut res: i32;",
+      "\tlet nums1: Vec<i32> = Vec::new();",
+      "\tres = Solution::function(nums1);",
+      "\tprintln!(\"{:?}\", res);",
+      "\tassert!(res == 0);",
+      "}",
+      ""
+    ],
+    "description": "Rust main boilerplate"
+  }
+}

@@ -1,26 +1,34 @@
 {
-  "Int Main": {
+  "Cpp int main": {
     "prefix": "lcmain",
     "body": [
+      "/*",
+      "",
+      "*/",
+      "",
       "#include \"bits/stdc++.h\"",
       "#include <iostream>",
       "using namespace std;",
       "",
       "class Solution {",
       "  public:",
-      "\tint function() {",
+      "\tint function(vector<int>& nums) {",
       "\t\treturn 0;",
       "\t}",
       "};",
       "",
       "int main() {",
-      "",
       "\tSolution sol;",
-      "\tauto res = sol.function();",
+      "\tint res;",
+      "",
+      "\tvector<int> nums1 = {};",
+      "\tres = sol.function(nums1);",
       "\tcout << res << endl;",
+      "\tassert(res == 0);",
+      "",
       "\treturn 0;",
       "}"
     ],
-    "description": "Int main boilerplate"
+    "description": "Cpp int main boilerplate"
   }
 }

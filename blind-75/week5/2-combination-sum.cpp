@@ -41,25 +41,9 @@ Constraints:
 */
 
 #include "bits/stdc++.h"
+#include "./../../printutils.h"
 #include <iostream>
 using namespace std;
-
-template <typename T> void print2Dmatrix(vector<vector<T>> res) {
-    if (res.empty()) {
-        cout << "Empty!" << endl;
-        return;
-    }
-
-    int r = res.size();
-    int c = res[0].size();
-
-    for (auto row : res) {
-        for (auto val : row) {
-            cout << val << " ";
-        }
-        cout << endl;
-    }
-}
 
 class Solution {
     vector<vector<int>> getSubsetsFromDP(vector<int> candidates, vector<vector<int>> num_subsets_dp,

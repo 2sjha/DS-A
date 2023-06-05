@@ -31,6 +31,7 @@ Follow up: Could you come up with a one-pass algorithm using only constant extra
 
 */
 
+#include "./../../printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;
@@ -92,12 +93,6 @@ class Solution {
         }
     }
 };
-
-template <typename T> void printArray(vector<T> arr) {
-    for (auto i : arr)
-        cout << i << " ";
-    cout << endl;
-}
 
 int main() {
     Solution sol;

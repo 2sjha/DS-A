@@ -25,27 +25,10 @@ Constraints:
     0 <= starti <= endi <= 104
 */
 
+#include "./../../printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;
-
-template <typename T> void print2Dmatrix(vector<vector<T>> res) {
-    if (res.empty()) {
-        cout << "Empty!" << endl;
-        return;
-    }
-
-    int r = res.size();
-    int c = res[0].size();
-
-    for (auto row : res) {
-        for (auto val : row) {
-            cout << val << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
 
 class Solution {
   private:

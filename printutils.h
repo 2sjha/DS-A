@@ -37,4 +37,16 @@ template <typename T> void printArray(std::vector<T> arr) {
     std::cout << std::endl << std::endl;
 };
 
+template <typename T> void printPairArray(std::vector<std::pair<T, T>> arr);
+template <typename T> void printPairArray(std::vector<std::pair<T, T>> arr) {
+    if (arr.empty()) {
+        std::cout << "Empty!" << std::endl;
+        return;
+    }
+
+    for (auto i : arr)
+        std::cout << i.first << "," << i.second << " ";
+    std::cout << std::endl << std::endl;
+};
+
 #endif /* PRINTUTILS_H */

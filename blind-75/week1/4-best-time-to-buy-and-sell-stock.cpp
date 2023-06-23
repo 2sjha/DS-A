@@ -37,19 +37,19 @@ using namespace std;
 
 class Solution {
   public:
-    int maxProfit(vector<int>& prices) {
-        int max_profit = 0;
-        int least = INT_MAX;
-        for (int i = 0; i < prices.size(); i++) {
-            if (prices[i] < least) {
-                least = prices[i];
-            }
+    int maxProfit(vector<int> &prices) {
+        int n = prices.size();
+        vector<int> left(n, INT_MAX);
 
-            int profit = prices[i] - least;
-            if (profit > max_profit) {
-                max_profit = profit;
-            }
+        for (int i = 1; i < n; ++i) {
+            left[i] = min(left[i - 1], prices[i - 1]);
         }
+
+        int max_profit = 0;
+        for (int i = 0; i < n; ++i) {
+            max_profit = max(max_profit, prices[i] - left[i]);
+        }
+
         return max_profit;
     }
 };

@@ -41,17 +41,50 @@ using namespace std;
 
 class Solution {
   public:
-    int function(vector<int> &nums) { return 0; }
+    int minFlipsMonoIncr(string s) {
+        int n = s.length();
+        vector<int> dp(n + 1, 0);
+        int cntOnes = 0;
+
+        for (int i = 1; i <= n; ++i) {
+            // If s[i] == 1, then its valid, but needs to be counted
+            if (s[i - 1] == '1') {
+                cntOnes++;
+                dp[i] = dp[i - 1];
+            } else {
+                // because if s[i] == 0, then if we dont flip this char, then all the ones to left
+                // (cntOnes) need to be flipped. Or we flip this.
+                dp[i] = min(dp[i - 1] + 1, cntOnes);
+            }
+        }
+
+        return dp[n];
+    }
 };
 
 int main() {
     Solution sol;
     int res;
 
-    vector<int> nums1 = {};
-    res = sol.function(nums1);
+    string s1 = "00110";
+    res = sol.minFlipsMonoIncr(s1);
     cout << res << endl;
-    assert(res == 0);
+    assert(res == 1);
+
+    string s2 = "010110";
+    res = sol.minFlipsMonoIncr(s2);
+    cout << res << endl;
+    assert(res == 2);
+
+    string s4 = "0001100";
+    res = sol.minFlipsMonoIncr(s4);
+    cout << res << endl;
+    assert(res == 2);
+
+    string s3 = "00011000";
+    res = sol.minFlipsMonoIncr(s3);
+    cout << res << endl;
+    assert(res == 2);
 
     return 0;
 }

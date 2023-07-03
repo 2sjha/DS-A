@@ -35,36 +35,15 @@ Constraints:
 
 struct Solution;
 impl Solution {
-    fn string_swap(s: &mut Vec<char>, idx_1: usize, idx_2: usize) {
-        let tmp: char = s[idx_1];
-        s[idx_1] = s[idx_2];
-        s[idx_2] = tmp;
-    }
-
-    fn check_equal(s: &Vec<char>, goal: &Vec<char>) -> bool {
-        let mut all_equal = true;
-        let n: usize = s.len();
-        for i in 0..n {
-            if s[i] != goal[i] {
-                all_equal = false;
-                break;
-            }
-        }
-
-        all_equal
-    }
-
     fn repeating_chars(s: &Vec<char>) -> bool {
         let mut chars: Vec<usize> = vec![0; 26];
         let n: usize = s.len();
-        let mut i: usize = 0;
 
-        while i < n {
+        for i in 0..n {
             chars[(s[i] as usize) - 97] += 1;
             if chars[(s[i] as usize) - 97] > 1 {
                 return true;
             }
-            i += 1;
         }
 
         return false;
@@ -79,31 +58,30 @@ impl Solution {
         let mut diff: usize = 0;
         let mut diff_idx: Vec<usize> = Vec::new();
 
-        let mut s_copy: Vec<char> = s.chars().collect();
+        let s_copy: Vec<char> = s.chars().collect();
         let goal_copy: Vec<char> = goal.chars().collect();
 
-        let mut i: usize = 0;
-        while i < n {
+        for i in 0..n {
             if s_copy[i] != goal_copy[i] {
                 diff += 1;
                 diff_idx.push(i);
+
+                if diff > 2 {
+                    break;
+                }
             }
-            i += 1;
         }
 
-        if diff > 2 {
+        if diff > 2 || diff == 1 {
             return false;
-        }
-
-        if diff == 2 {
-            Self::string_swap(&mut s_copy, diff_idx[0], diff_idx[1]);
-            if Self::check_equal(&s_copy, &goal_copy) {
+        } else if diff == 2 {
+            if s_copy[diff_idx[0]] == goal_copy[diff_idx[1]]
+                && s_copy[diff_idx[1]] == goal_copy[diff_idx[0]]
+            {
                 return true;
             } else {
                 return false;
             }
-        } else if diff == 1 {
-            return false;
         } else {
             return Self::repeating_chars(&s_copy);
         }

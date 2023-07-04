@@ -4,8 +4,6 @@
 #include <iostream>
 #include <vector>
 
-// Utility functions
-
 template <typename T> void print2Dmatrix(std::vector<std::vector<T>> matrix);
 template <typename T> void print2Dmatrix(std::vector<std::vector<T>> matrix) {
     if (matrix.empty()) {

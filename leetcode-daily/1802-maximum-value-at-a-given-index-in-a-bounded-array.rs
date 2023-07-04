@@ -35,75 +35,114 @@ Constraints:
 
 struct Solution;
 impl Solution {
-    fn get_sum_until(n: i32) -> i32 {
+    fn add_ones(n: i32) -> i64 {
         if n <= 0 {
             return 0;
         }
 
-        (n * (n + 1)) / 2
+        n as i64
     }
 
-    fn crop_sum_left_right(val: i32, index: i32, n: i32) -> i32 {
-        val * val - Self::get_sum_until(val - (index + 1)) - Self::get_sum_until(val - n - index)
+    fn get_sum_until(n: i32) -> i64 {
+        if n <= 0 {
+            return 0;
+        }
+
+        ((n as i64 * (n + 1) as i64) / 2) as i64
     }
 
-    fn crop_sum_left(val: i32, index: i32) -> i32 {
-        val * val - Self::get_sum_until(val - (index + 1))
+    fn square(val: i32) -> i64 {
+        (val as i64 * val as i64) as i64
     }
 
-    fn crop_sum_right(val: i32, index: i32, n: i32) -> i32 {
-        val * val - Self::get_sum_until(val - n - index)
+    fn get_max_sum_with_val(val: i32, index: i32, n: i32) -> i32 {
+        let sq = Self::square(val);
+        let l_crop = Self::get_sum_until(val - (index + 1));
+        let r_crop = Self::get_sum_until(val - n + index);
+        let l_ones = Self::add_ones(index + 1 - val);
+        let r_ones = Self::add_ones(n - index - val);
+
+        let sum: i64 = sq - l_crop - r_crop + l_ones + r_ones;
+
+        if sum > (i32::MAX as i64) {
+            return 0;
+        } else {
+            return sum as i32;
+        }
     }
 
     pub fn max_value(n: i32, index: i32, max_sum: i32) -> i32 {
-        let mut max_val: i32 = 1;
-        let mut sum: i32 = 0;
+        let mut val: i64 = 1;
+        let mut low: i64 = 1;
+        let mut high: i64 = i32::MAX as i64;
+        let mut sum: i32;
+        let mut next_sum: i32;
 
-        let left: bool = index < n / 2;
+        while low < high {
+            val = (low + high) / 2;
+            sum = Self::get_max_sum_with_val(val as i32, index, n);
+            next_sum = Self::get_max_sum_with_val(val as i32 + 1, index, n);
 
-        while sum <= max_sum {
-            if left {
-                sum = std::cmp::max(
-                    Self::crop_sum_left(max_val, index),
-                    Self::crop_sum_left_right(max_val, index, n),
-                );
+            if sum == 0 {
+                high = val;
+            } else if sum <= max_sum && next_sum > max_sum {
+                break;
+            } else if sum <= max_sum && next_sum <= max_sum {
+                low = val;
             } else {
-                sum = std::cmp::max(
-                    Self::crop_sum_right(max_val, index, n),
-                    Self::crop_sum_left_right(max_val, index, n),
-                );
+                high = val;
             }
-            // println!("{}", sum);
-            // sum = Self::crop_sum_left_right(max_val, index, n);
-            max_val += 1;
         }
-        max_val -= 2;
 
-        max_val
+        val as i32
     }
 }
 
 fn main() {
     let mut res: i32;
+    let mut n: i32;
+    let mut index: i32;
+    let mut max_sum: i32;
 
-    let mut n: i32 = 4;
-    let mut index: i32 = 2;
-    let mut max_sum: i32 = 6;
-    // res = Solution::max_value(n, index, max_sum);
-    // println!("{:?}", res);
-    // assert!(res == 2);
+    n = 4;
+    index = 2;
+    max_sum = 6;
+    res = Solution::max_value(n, index, max_sum);
+    println!("{}", res);
+    assert!(res == 2);
 
-    // n = 6;
-    // index = 1;
-    // max_sum = 10;
-    // res = Solution::max_value(n, index, max_sum);
-    // println!("{:?}", res);
-    // assert!(res == 3);
+    n = 6;
+    index = 1;
+    max_sum = 10;
+    res = Solution::max_value(n, index, max_sum);
+    println!("{}", res);
+    assert!(res == 3);
 
     n = 3;
     index = 2;
     max_sum = 18;
     res = Solution::max_value(n, index, max_sum);
-    println!("{:?}", res);
+    println!("{}", res);
     assert!(res == 7);
+
+    n = 4;
+    index = 0;
+    max_sum = 4;
+    res = Solution::max_value(n, index, max_sum);
+    println!("{}", res);
+    assert!(res == 1);
+
+    n = 4;
+    index = 0;
+    max_sum = 6;
+    res = Solution::max_value(n, index, max_sum);
+    println!("{}", res);
+    assert!(res == 2);
+
+    n = 9;
+    index = 4;
+    max_sum = 764086444;
+    res = Solution::max_value(n, index, max_sum);
+    println!("{}", res);
+    assert!(res == 84898496);
 }

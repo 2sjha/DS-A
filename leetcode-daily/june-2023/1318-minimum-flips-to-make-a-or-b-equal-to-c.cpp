@@ -30,7 +30,7 @@ Constraints:
     1 <= c <= 10^9
 */
 
-#include "./../printutils.h"
+#include "./../../printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

@@ -37,7 +37,7 @@ Constraints:
     sum(rods[i]) <= 5000
 */
 
-#include "./../printutils.h"
+#include "./../../printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

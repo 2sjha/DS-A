@@ -37,7 +37,7 @@ Constraints:
     1 <= nums[i], cost[i] <= 106
 */
 
-#include "./../printutils.h"
+#include "./../../printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

@@ -35,7 +35,7 @@ Constraints:
     0 <= nums[i] <= 500
 */
 
-#include "./../../printutils.h"
+#include "./../../cpp-utils/printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

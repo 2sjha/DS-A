@@ -33,7 +33,7 @@ Constraints:
     nums[i] is either 0 or 1.
 */
 
-#include "./../../printutils.h"
+#include "./../../cpp-utils/printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

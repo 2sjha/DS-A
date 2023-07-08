@@ -23,7 +23,7 @@ Constraints:
     -100 <= matrix[i][j] <= 100
 */
 
-#include "./../../printutils.h"
+#include "./../../cpp-utils/printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

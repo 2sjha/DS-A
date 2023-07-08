@@ -38,7 +38,7 @@ Constraints:
     digits[i] is a digit in the range ['2', '9'].
 */
 
-#include "./../../printutils.h"
+#include "./../../cpp-utils/printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

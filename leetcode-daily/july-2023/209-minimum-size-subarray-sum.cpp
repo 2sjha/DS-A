@@ -33,7 +33,7 @@ Follow up: If you have figured out the O(n) solution, try coding another solutio
 complexity is O(n log(n)).
 */
 
-#include "./../../printutils.h"
+#include "./../../cpp-utils/printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

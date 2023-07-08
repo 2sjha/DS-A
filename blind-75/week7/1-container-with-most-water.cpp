@@ -32,7 +32,7 @@ Constraints:
     0 <= height[i] <= 104
 */
 
-#include "./../../printutils.h"
+#include "./../../cpp-utils/printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

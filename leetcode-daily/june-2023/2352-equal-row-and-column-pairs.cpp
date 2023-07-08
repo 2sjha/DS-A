@@ -32,7 +32,7 @@ Constraints:
     1 <= grid[i][j] <= 105
 */
 
-#include "./../../printutils.h"
+#include "./../../cpp-utils/printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;

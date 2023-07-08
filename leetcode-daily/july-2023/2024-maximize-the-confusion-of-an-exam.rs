@@ -46,30 +46,33 @@ Constraints:
     1 <= k <= n
 */
 
+/*
+Idea is to have a sliding window, where you count necessary flips,
+so all not-flip chars are counted as consecutive by default
+When you exceed flip_limit, shift your window rightwards
+*/
 struct Solution;
 impl Solution {
     fn max_consecutive_tf(s: &Vec<char>, k: i32, tf: char) -> i32 {
-        let n: usize = s.len();
+        let n: i32 = s.len() as i32;
         let mut max_len: i32 = 0;
-        let mut i: usize = 0;
-        let mut len: i32;
+        let mut i: i32 = 0;
         let mut flips: i32 = 0;
+        let mut left: i32 = 0;
 
         while i < n {
-            if s[i] == tf {
-                len = 0;
-                while i < n {
-                    if s[i] != tf {
-                        flips += 1;
-                        if flips >= k {
-                            break;
-                        }
-                    }
-                    len += 1;
-                    i += 1;
-                }
-                max_len = std::cmp::max(max_len, len);
+            if s[i as usize] != tf {
+                flips += 1;
             }
+
+            while flips > k {
+                if s[left as usize] != tf {
+                    flips -= 1;
+                }
+                left += 1;
+            }
+
+            max_len = std::cmp::max(max_len, i - left + 1);
             i += 1;
         }
 
@@ -108,4 +111,10 @@ fn main() {
     res = Solution::max_consecutive_answers(answer_key, k);
     println!("{:?}", res);
     assert!(res == 5);
+
+    answer_key = String::from("FFFTTFTTFT");
+    k = 3;
+    res = Solution::max_consecutive_answers(answer_key, k);
+    println!("{:?}", res);
+    assert!(res == 8);
 }

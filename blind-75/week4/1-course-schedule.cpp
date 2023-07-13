@@ -159,11 +159,11 @@ class Solution {
 };
 
 int main() {
-    // int numCourses = 2;
-    // vector<vector<int>> prerequisites = {{1, 0}};
+    int numCourses = 2;
+    vector<vector<int>> prerequisites = {{1, 0}};
 
-    // int numCourses = 2;
-    // vector<vector<int>> prerequisites = {{1, 0}, {0, 1}};
+    int numCourses = 2;
+    vector<vector<int>> prerequisites = {{1, 0}, {0, 1}};
 
     int numCourses = 5;
     vector<vector<int>> prerequisites = {{1, 4}, {2, 4}, {3, 1}, {3, 2}};

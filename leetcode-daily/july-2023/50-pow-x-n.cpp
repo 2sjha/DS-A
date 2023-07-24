@@ -36,12 +36,13 @@ Constraints:
 using namespace std;
 
 class Solution {
+  private:
     unordered_map<long, double> calc;
 
-  private:
-    double doPow(double x, long n) {
+  public:
+    double myPow(double x, long n) {
         if (n < 0)
-            return 0;
+            return 1 / myPow(x, -1 * n);
         else if (n == 0)
             return 1;
         else if (n == 1)
@@ -50,36 +51,11 @@ class Solution {
         if (calc.count(n))
             return calc[n];
 
-        double res = doPow(x, n / 2) * doPow(x, n / 2);
+        double res = myPow(x, n / 2) * myPow(x, n / 2);
         if (n % 2 != 0) {
             res = res * x;
         }
         calc[n] = res;
-        return res;
-    }
-
-  public:
-    double myPow(double x, int n) {
-        if (x == 1) {
-            return x;
-        }
-        if (x == -1) {
-            if (n % 2 == 0) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }
-
-        double res = 1;
-        if (n > 0) {
-            res = doPow(x, n);
-        } else {
-            long p = -1 * (long)n;
-            res = doPow(x, p);
-            res = 1 / res;
-        }
-
         return res;
     }
 };

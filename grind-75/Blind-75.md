@@ -1,6 +1,6 @@
 # [Blind Curated 75](https://leetcode.com/list/xoqag3yj/)
 
-Blind 75 was curated list of leetcode problems to save time in interview prep on [Blind](https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-OaM1orEU) which then gained a lot of popularity. The author went on to create an improved version [Grind-75](https://www.techinterviewhandbook.org/grind75)
+Blind 75 is curated list of leetcode problems to save time in interview prep on [Blind](https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-OaM1orEU) which then gained a lot of popularity. The author went on to create an improved version [Grind-75](https://www.techinterviewhandbook.org/grind75)
 
 # Original Blind 75
 

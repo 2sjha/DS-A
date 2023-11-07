@@ -61,94 +61,64 @@ Constraints:
 #include <iostream>
 using namespace std;
 
+// Looked up Solution
+// To maximize score, we need to minimize the value of nodes in paths to leaf nodes
+// So we do that instead, Choose minimum of this node, or sum of children nodes
+
 class Solution {
   private:
-    unordered_map<int, long long> substree_sum;
+    unordered_map<int, pair<int, set<int>>> g;
 
-    pair<long long, bool> dfs(unordered_map<int, set<int>> &g, vector<int> &values, int i) {
-        // Check if this is a leaf node
-        if (g[i].empty()) {
-            return {0, false};
-        }
-
-        // Returns sum for children and whether to take root or not
-        long long sum = 0;
-        bool take_root_for_score = true;
-
-        for (int j : g[i]) {
-            auto child = dfs(g, values, j);
-            if (child.first == 0) {
-                if (values[i] < values[j]) {
-                    take_root_for_score = false;
-                } else if (child.second) {
-                    sum += values[j];
-                }
-            } else {
-                if (values[i] < values[j]) {
-                    take_root_for_score = false;
-                } else {
-                    sum += child.first;
-                }
-            }
-        }
-
-        if(!take_root_for_score
-         || (sum == 0 && get_sum_subtree(g, values, i) > values[i])
-        ) {
-            sum = get_sum_subtree(g, values, i);
-        } else {
-            sum += values[i];
-        }
-
-        return {sum, take_root_for_score};
-    }
-
-    long long get_sum_subtree(unordered_map<int, set<int>> &g, vector<int> &values, int i) {
-        if (substree_sum[i] != -1)
-            return substree_sum[i];
+    long long dfs(int i) {
+        if (g[i].second.empty())
+            return g[i].first;
 
         long long sum = 0;
-        for (int j : g[i]) {
-            sum += values[j];
-            sum += get_sum_subtree(g, values, j);
+        for (int j : g[i].second) {
+            sum += dfs(j);
         }
-        substree_sum[i] = sum;
-        return substree_sum[i];
+
+        return min((long long)g[i].first, sum);
     }
 
-    void convert_to_dag(unordered_map<int, set<int>> &g, int i) {
-        for (int j : g[i]) {
-            g[j].erase(i);
+    void convert_to_dag(int i) {
+        for (int j : g[i].second) {
+            g[j].second.erase(i);
         }
-        for (int j : g[i]) {
-            convert_to_dag(g, j);
+        for (int j : g[i].second) {
+            convert_to_dag(j);
         }
+    }
+
+    long long get_sum_subtree(int i) {
+        long long sum = g[i].first;
+        for (int j : g[i].second) {
+            sum += get_sum_subtree(j);
+        }
+        return sum;
     }
 
   public:
     long long maximumScoreAfterOperations(vector<vector<int>> &edges, vector<int> &values) {
         int n = values.size();
-        unordered_map<int, set<int>> g;
 
-        // Init empty graph
         for (int i = 0; i < n; ++i) {
-            g[i] = set<int>();
-            substree_sum[i] = -1;
+            g[i] = {values[i], set<int>()};
         }
 
-        // Setup graph
         for (auto edge : edges) {
             int u = edge[0];
             int v = edge[1];
 
-            g[u].insert(v);
-            g[v].insert(u);
+            g[u].second.insert(v);
+            g[v].second.insert(u);
         }
 
-        convert_to_dag(g, 0);
-        pair<long long, bool> res = dfs(g, values, 0);
+        convert_to_dag(0);
+        long long res = get_sum_subtree(0);
+        res -= dfs(0);
 
-        return res.first;
+        return res;
     }
 };
 
@@ -204,11 +174,24 @@ int main() {
     cout << res << endl;
     assert(res == 40);
 
-    vector<vector<int>> edges9 = {{3,1},{0,2},{0,3}};
-    vector<int> values9 = {21,12,19,5};
+    vector<vector<int>> edges9 = {{3, 1}, {0, 2}, {0, 3}};
+    vector<int> values9 = {21, 12, 19, 5};
     res = sol.maximumScoreAfterOperations(edges9, values9);
     cout << res << endl;
     assert(res == 36);
+
+    vector<vector<int>> edges10 = {{2, 0}, {4, 1}, {5, 3}, {4, 6}, {2, 4}, {5, 2}, {5, 7}};
+    vector<int> values10 = {12, 12, 7, 9, 2, 11, 12, 25};
+    res = sol.maximumScoreAfterOperations(edges10, values10);
+    cout << res << endl;
+    assert(res == 83);
+
+    vector<vector<int>> edges11 = {{1, 0}, {9, 1}, {6, 2}, {7, 4}, {3, 5},
+                                   {7, 3}, {9, 6}, {7, 8}, {7, 9}};
+    vector<int> values11 = {14, 17, 13, 18, 17, 10, 23, 19, 22, 2};
+    res = sol.maximumScoreAfterOperations(edges11, values11);
+    cout << res << endl;
+    assert(res == 153);
 
     return 0;
 }

@@ -1,6 +1,7 @@
 #ifndef PRINTUTILS_H
 #define PRINTUTILS_H
 
+#include <cstddef>
 #include <iostream>
 #include <vector>
 
@@ -48,5 +49,28 @@ template <typename T> void printPairArray(std::vector<std::pair<T, T>> arr) {
         std::cout << i.first << "," << i.second << " ";
     std::cout << std::endl << std::endl;
 };
+
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
+void printLinkedList(ListNode *head);
+void printLinkedList(ListNode *head) {
+    if (head == NULL) {
+        std::cout << "Empty!" << std::endl;
+        return;
+    }
+
+    ListNode* tmp = head;
+    while(tmp != NULL) {
+        std::cout << tmp->val << " ";
+        tmp = tmp->next;
+    }
+    std::cout << std::endl << std::endl;
+}
 
 #endif /* PRINTUTILS_H */

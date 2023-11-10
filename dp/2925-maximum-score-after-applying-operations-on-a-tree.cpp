@@ -1,5 +1,5 @@
 /*
-https://leetcode.com/contest/weekly-contest-370/problems/maximum-score-after-applying-operations-on-a-tree/
+https://leetcode.com/problems/maximum-score-after-applying-operations-on-a-tree/
 
 2925. Maximum Score After Applying Operations on a Tree
 

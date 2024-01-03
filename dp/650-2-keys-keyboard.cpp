@@ -71,9 +71,11 @@ int main() {
     int res;
 
     res = sol.minSteps(3);
+    cout << res << endl;
     assert(res == 3);
 
     res = sol.minSteps(1);
+    cout << res << endl;
     assert(res == 0);
 
     return 0;

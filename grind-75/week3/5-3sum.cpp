@@ -1,100 +1,79 @@
 /*
-https://leetcode.com/problems/3sum
+https://leetcode.com/problems/3sum/
 
-Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i
-!= k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j
+!= k`, and `nums[i] + nums[j] + nums[k] == 0`.
 
 Notice that the solution set must not contain duplicate triplets.
 
 
-Example 1:
+**Example 1:**
 
-Input: nums = [-1,0,1,2,-1,-4]
-Output: [[-1,-1,2],[-1,0,1]]
-Explanation:
+**Input:** nums = [-1,0,1,2,-1,-4]
+**Output:** [[-1,-1,2],[-1,0,1]]
+**Explanation:** 
 nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
 nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
 nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
 The distinct triplets are [-1,0,1] and [-1,-1,2].
 Notice that the order of the output and the order of the triplets does not matter.
 
-Example 2:
+**Example 2:**
 
-Input: nums = [0,1,1]
-Output: []
-Explanation: The only possible triplet does not sum up to 0.
+**Input:** nums = [0,1,1]
+**Output:** []
+**Explanation:** The only possible triplet does not sum up to 0.
 
-Example 3:
+**Example 3:**
 
-Input: nums = [0,0,0]
-Output: [[0,0,0]]
-Explanation: The only possible triplet sums up to 0.
+**Input:** nums = [0,0,0]
+**Output:** [[0,0,0]]
+**Explanation:** The only possible triplet sums up to 0.
 
 
-Constraints:
+**Constraints:**
 
-    3 <= nums.length <= 3000
-    -105 <= nums[i] <= 105
+* `3 <= nums.length <= 3000`
+* `-10⁵ <= nums[i] <= 10⁵`
 */
 
+#include "./../../cpp-utils/printutils.h"
 #include "bits/stdc++.h"
 #include <iostream>
 using namespace std;
 
 class Solution {
-  public:
-    vector<pair<int, int>> getTwoSumPairs(vector<int> &nums, int reqSum, int curr_idx) {
-        vector<pair<int, int>> res;
-        int left, right;
-
-        if (curr_idx == nums.size() - 2) {
-            return res;
-        }
-
-        if (curr_idx > 0 and nums[curr_idx] == nums[curr_idx - 1]) {
-            return res;
-        }
-
-        left = curr_idx + 1;
-        right = nums.size() - 1;
-        while (left < right) {
-            int sum = nums[left] + nums[right];
-            if (sum == reqSum) {
-                pair<int, int> p = {nums[left], nums[right]};
-                res.push_back(p);
-                while (nums[left] == p.first && nums[right] == p.second) {
-                    if (left < nums.size() - 1) {
-                        left++;
-                    } else {
-                        break;
-                    }
-                    if (right > 0) {
-                        right--;
-                    } else {
-                        break;
-                    }
-                }
-            } else if (sum > reqSum) {
-                right--;
-            } else if (sum < reqSum) {
-                left++;
-            }
-        }
-
-        return res;
-    }
-
-    vector<vector<int>> threeSum(vector<int> &nums) {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> res;
         sort(nums.begin(), nums.end());
+        int n = nums.size();
 
-        for (int i = 0; i < nums.size(); ++i) {
-            int reqSum = -(nums[i]);
-            vector<pair<int, int>> twoSumPairs = getTwoSumPairs(nums, reqSum, i);
-            if (!twoSumPairs.empty()) {
-                for (pair<int, int> twoSum : twoSumPairs) {
-                    res.push_back({nums[i], twoSum.first, twoSum.second});
+        for(int i=0; i<n; ++i) {
+            int low = i+1;
+            int high = n-1;
+            int target = -nums[i];
+
+            while(low < n && high >= 0 && low < high) {
+                if(nums[low] + nums[high] == target) {
+                    int b = nums[low];
+                    int c = nums[high];
+                    res.push_back({nums[i], nums[low], nums[high]});
+                    while(low < n && nums[low] == b) {
+                        low++;
+                    }
+                    while(high >= 0 && nums[high] == c) {
+                        high--;
+                    }
+                } else if(nums[low] + nums[high] > target) {
+                    high--;
+                } else {
+                    low++;
                 }
+            }
+
+            while(i < n && nums[i] == -target) {
+                i++;
             }
         }
 
@@ -103,17 +82,25 @@ class Solution {
 };
 
 int main() {
-    vector<int> nums = {-1, 0, 1, 2, -1, -4};
-    // vector<int> nums = {1, 0, 1};
-    // vector<int> nums = {0, 0, 0};
-    Solution sol;
+	Solution sol;
 
-    auto res = sol.threeSum(nums);
-    for (auto r : res) {
-        for (auto val : r) {
-            cout << val << " ";
-        }
-        cout << endl;
-    }
-    return 0;
+	vector<int> nums_1 = {-1,0,1,2,-1,-4};
+	vector<vector<int>> expected_1 = {{-1,-1,2},{-1,0,1}};
+	vector<vector<int>> output_1 = sol.threeSum(nums_1);
+	print2Dmatrix(output_1);
+	assert(output_1 == expected_1);
+
+	vector<int> nums_2 = {0,1,1};
+	vector<vector<int>> expected_2 = {};
+	vector<vector<int>> output_2 = sol.threeSum(nums_2);
+	print2Dmatrix(output_2);
+	assert(output_2 == expected_2);
+
+	vector<int> nums_3 = {0,0,0};
+	vector<vector<int>> expected_3 = {{0,0,0}};
+	vector<vector<int>> output_3 = sol.threeSum(nums_3);
+	print2Dmatrix(output_3);
+	assert(output_3 == expected_3);
+
+	return 0;
 }

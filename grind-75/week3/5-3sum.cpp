@@ -1,8 +1,8 @@
 /*
 https://leetcode.com/problems/3sum/
 
-Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j
-!= k`, and `nums[i] + nums[j] + nums[k] == 0`.
+Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`,
+and `j!= k`, and `nums[i] + nums[j] + nums[k] == 0`.
 
 Notice that the solution set must not contain duplicate triplets.
 
@@ -49,15 +49,17 @@ public:
         sort(nums.begin(), nums.end());
         int n = nums.size();
 
-        for(int i=0; i<n; ++i) {
-            int low = i+1;
-            int high = n-1;
-            int target = -nums[i];
+        int low = 0, high = 0, a = 0, b = 0, c = 0;
+        for(int i=0; i<n;) {
+            a = -nums[i];
+            low = i+1;
+            high = n-1;
 
             while(low < n && high >= 0 && low < high) {
-                if(nums[low] + nums[high] == target) {
-                    int b = nums[low];
-                    int c = nums[high];
+                if(nums[low] + nums[high] == a) {
+                    b = nums[low];
+                    c = nums[high];
+
                     res.push_back({nums[i], nums[low], nums[high]});
                     while(low < n && nums[low] == b) {
                         low++;
@@ -65,14 +67,14 @@ public:
                     while(high >= 0 && nums[high] == c) {
                         high--;
                     }
-                } else if(nums[low] + nums[high] > target) {
+                } else if(nums[low] + nums[high] > a) {
                     high--;
                 } else {
                     low++;
                 }
             }
 
-            while(i < n && nums[i] == -target) {
+            while(i < n && nums[i] == -a) {
                 i++;
             }
         }

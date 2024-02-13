@@ -46,20 +46,22 @@ impl Solution {
         let n: usize = nums1.len();
         let mut res: i32 = 0;
         let mut mp: HashMap<i32, i32> = HashMap::new();
-        for num3 in nums3 {
-            for num4 in nums4.clone() {
-                if mp.contains_key(&(num3 + num4)) {
-                    mp.insert(num3 + num4, mp[&(num3 + num4)] + 1);
+        let mut target: i32;
+        let mut partial_sum: i32;
+        for i in 0..n {
+            for j in 0..n {
+                partial_sum = nums3[i] + nums4[j];
+                if mp.get(&partial_sum).is_some() {
+                    mp.insert(partial_sum, mp[&partial_sum] + 1);
                 } else {
-                    mp.insert(num3 + num4, 1);
+                    mp.insert(partial_sum, 1);
                 }
             }
         }
 
-        let mut target: i32;
-        for i in 0..n {
-            for j in 0..n {
-                target = -1 * (nums1[i] + nums2[j]);
+        for k in 0..n {
+            for l in 0..n {
+                target = -1 * (nums1[k] + nums2[l]);
                 if mp.get(&target).is_some() {
                     res += mp.get(&target).unwrap();
                 }

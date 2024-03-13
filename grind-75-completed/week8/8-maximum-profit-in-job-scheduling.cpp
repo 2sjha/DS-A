@@ -146,7 +146,7 @@ class Solution {
         sort(jobs.begin(), jobs.end());
 
         return maxProfitTopDown(dp, jobs, 0);
-        return maxProfitBottomUp(jobs, startTime);
+        // return maxProfitBottomUp(jobs, startTime);
     }
 };
 

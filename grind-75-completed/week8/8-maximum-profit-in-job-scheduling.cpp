@@ -59,7 +59,7 @@ class Solution {
         return jobs[idx][1] < jobs[idx + 1][0];
     }
 
-    int findNextNoOverlap(vector<vector<int>> &jobs, int idx) {
+    int findNextNoOverlap(vector<vector<int>> &jobs, vector<int>& startTimes, int idx) {
         int low = idx + 1;
         int high = jobs.size();
         int mid = jobs.size();
@@ -81,13 +81,11 @@ class Solution {
     }
 
     int maxProfit(vector<vector<int>> &jobs, int idx) {
-        if (idx >= jobs.size()) {
+        if (idx >= jobs.size())
             return 0;
-        }
 
-        if (dp[idx] != -1) {
+        if (dp[idx] != -1)
             return dp[idx];
-        }
 
         int mxProfit = 0;
         if (noOverlap(jobs, idx)) {
@@ -116,7 +114,8 @@ class Solution {
             jobs[i][2] = profit[i];
         }
         sort(jobs.begin(), jobs.end());
-        return maxProfit(jobs, 0);
+        sort(startTime.begin(), startTime.end());
+        return maxProfit(jobs, startTime, 0);
     }
 };
 

@@ -46,76 +46,45 @@ Profit obtained 150 = 20 + 70 + 60.
 
 #include "./../../cpp-utils/printutils.h"
 #include "bits/stdc++.h"
+#include <algorithm>
 #include <iostream>
 using namespace std;
 
 class Solution {
   private:
-    vector<int> dp;
-    bool noOverlap(vector<vector<int>> &jobs, int idx) {
-        if (idx >= jobs.size() - 1)
-            return true;
-
-        return jobs[idx][1] < jobs[idx + 1][0];
-    }
-
-    int findNextNoOverlap(vector<vector<int>> &jobs, vector<int>& startTimes, int idx) {
-        int low = idx + 1;
-        int high = jobs.size();
-        int mid = jobs.size();
-        while (low < high) {
-            mid = (low + high) / 2;
-            if (jobs[mid][0] < jobs[idx][1]) {
-                low = mid + 1;
-            } else if (jobs[mid][0] >= jobs[idx][1] && mid > 0 && jobs[mid - 1][0] < jobs[idx][1]) {
-                break;
-            } else {
-                high = mid - 1;
-            }
-        }
-
-        if (low == high)
-            return low;
-        else
-            return mid;
-    }
-
-    int maxProfit(vector<vector<int>> &jobs, int idx) {
-        if (idx >= jobs.size())
-            return 0;
-
-        if (dp[idx] != -1)
-            return dp[idx];
-
-        int mxProfit = 0;
-        if (noOverlap(jobs, idx)) {
-            mxProfit = jobs[idx][2] + maxProfit(jobs, idx + 1);
+    int nextNonOverlapping(vector<int> &startTimes, int currJobEndTime) {
+        auto iter = lower_bound(startTimes.begin(), startTimes.end(), currJobEndTime);
+        if (iter != startTimes.end()) {
+            return iter - startTimes.begin();
         } else {
-            int firstNoOverlap = findNextNoOverlap(jobs, idx);
-            mxProfit = max(mxProfit, jobs[idx][2] + maxProfit(jobs, firstNoOverlap));
-            for (int i = idx + 1; i <= firstNoOverlap && i < jobs.size(); ++i) {
-                mxProfit = max(mxProfit, jobs[i][2] + maxProfit(jobs, findNextNoOverlap(jobs, i)));
-            }
+            iter = upper_bound(startTimes.begin(), startTimes.end(), currJobEndTime);
+            return iter - startTimes.begin();
+        }
+    }
+
+    int maxProfit(vector<vector<int>> &jobs, vector<int> &startTimes) {
+        int n = jobs.size();
+        vector<int> dp = vector<int>(n + 1, 0);
+        for (int i = n - 1; i >= 0; --i) {
+            int nextNonOverlap = nextNonOverlapping(startTimes, jobs[i][1]);
+            dp[i] = max(dp[i+1], jobs[i][2] + dp[nextNonOverlapping(startTimes, jobs[i][1])]);
         }
 
-        dp[idx] = mxProfit;
-        return mxProfit;
+        return dp[0];
     }
 
   public:
     int jobScheduling(vector<int> &startTime, vector<int> &endTime, vector<int> &profit) {
         int n = startTime.size();
-        dp = vector<int>(n + 1, -1);
-
         vector<vector<int>> jobs(n, vector<int>(3, 0));
         for (int i = 0; i < n; ++i) {
             jobs[i][0] = startTime[i];
             jobs[i][1] = endTime[i];
             jobs[i][2] = profit[i];
         }
-        sort(jobs.begin(), jobs.end());
         sort(startTime.begin(), startTime.end());
-        return maxProfit(jobs, startTime, 0);
+        sort(jobs.begin(), jobs.end());
+        return maxProfit(jobs, startTime);
     }
 };
 

@@ -34,51 +34,40 @@ A **subarray** is a contiguous part of the array.
 #include <iostream>
 using namespace std;
 
+// Use prefix sum to solve in O(n)
+// Detailed explanation in code
+
 class Solution {
-private:
-    unordered_map<int, unordered_map<int, pair<int, int>>> dp;
-
-    // returns num of subarrays including idx and excluding idx
-    pair<int, int> numSubarraysSum(vector<int>& nums, int idx, int goal) {
-        if(idx >= nums.size()) return {0, 0};
-
-        if(dp.count(idx) && dp[idx].count(goal)) return dp[idx][goal];
-
-
-        pair<int, int> res;
-        if(idx == nums.size() - 1) {
-            if(!nums[idx] && !goal) res = {1, 0};
-            else if(nums[idx] && goal == 1) res = {1, 0};
-            else res = {0, 0};
-        } else {
-            if(nums[idx]) {
-                pair<int, int> next = numSubarraysSum(nums, idx+1, goal);
-                pair<int, int> next2 = numSubarraysSum(nums, idx+1, goal-1);
-                res = {next2.first, next.first + next.second};
-            } else {
-                pair<int, int> next = numSubarraysSum(nums, idx+1, goal);
-                if(next == make_pair(0, 0)) {
-                    res = next;
-                } else if (!goal) {
-                    res = {1 + next.first, next.first + next.second};
-                } else {
-                    res = {next.first, next.first + next.second};
-                }
-            }
-        }
-
-        cout << "idx: " << idx << ", goal: " << goal << ", res: {" << res.first << ", " << res.second << "}\n";
-        dp[idx][goal] = res;
-        return dp[idx][goal];
-    }
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {
         int sum = 0;
         for(int i: nums) sum += i;
         if(sum < goal) return 0;
 
-        pair<int, int> res = numSubarraysSum(nums, 0, goal);
-        return res.first + res.second;
+        int res = 0, curr_sum = 0;
+        // Map to count the subarrays that start at index 0, with sum = key
+        unordered_map<int, int> prefsum_subarrays_cnt;
+        // special case for prefsum
+        prefsum_subarrays_cnt[0] = 1;
+        for(int i = 0; i < nums.size(); ++i) {
+            // current sum = sum of current subarray size i+1 (0-i)
+            curr_sum += nums[i];
+
+            // Can we find a subarray with sum = goal - currsum
+            // that starts from idx 0 and end at k (anywhere between 0 to i)
+            if(prefsum_subarrays_cnt.count(curr_sum - goal)) {
+                // If yes, then all those subarrays can be chopped off 
+                // from our current array so we find all subarrays
+                // that start from k and end at i
+                // then resulting subarray will have sum = curr_sum - (curr_sum - goal)
+                res += prefsum_subarrays_cnt[curr_sum - goal];
+            }
+
+            // update the count of subarrays with sum curr_sum to be used later
+            prefsum_subarrays_cnt[curr_sum]++;
+        }
+
+        return res;
     }
 };
 

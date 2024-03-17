@@ -19,7 +19,7 @@ Blind Curated 75 problems solved in Rust.
 [Spiral Matrix](https://leetcode.com/problems/spiral-matrix)
 [Jump Game](https://leetcode.com/problems/jump-game)
 [Merge Intervals](https://leetcode.com/problems/merge-intervals)
-[Insert Interval](https://leetcode.com/problems/insert-interval)
+[Insert Interval](https://leetcode.com/problems/insert-interval): Keep a currently merged interval and keep checking its overlap. If no overlap, then push original interval, if yes and merge this interval with currently merged interval. While pushing check if no overlap and push the first interval.
 [Unique Paths](https://leetcode.com/problems/unique-paths)
 [Climbing Stairs](https://leetcode.com/problems/climbing-stairs)
 [Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes)

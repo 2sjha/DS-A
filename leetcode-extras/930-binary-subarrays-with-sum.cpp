@@ -18,7 +18,7 @@ A **subarray** is a contiguous part of the array.
 
 **Example 2:**
 
-**Input:** nums = [0,0,0,0,0], goal = 0
+**Input:** nums = [0,0,0,0,0], goal = sss0
 **Output:** 15
 
 

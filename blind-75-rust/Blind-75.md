@@ -25,7 +25,7 @@ Blind Curated 75 problems solved in Rust.
 [Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes)
 [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring)
 [Word Search](https://leetcode.com/problems/word-search)
-[Decode Ways](https://leetcode.com/problems/decode-ways)
+[Decode Ways](https://leetcode.com/problems/decode-ways): Use DP on index and think only about cases that are valid. 
 [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree)
 [Same Tree](https://leetcode.com/problems/same-tree)
 [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal)

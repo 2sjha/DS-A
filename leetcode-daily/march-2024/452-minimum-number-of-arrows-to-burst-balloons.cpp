@@ -59,16 +59,15 @@ class Solution {
   public:
     int findMinArrowShots(vector<vector<int>> &points) {
         sort(points.begin(), points.end());
-        int i = 0, res = 0, n = points.size();
+        int res = 0, n = points.size();
         vector<int> common = {0, 0};
-        while (i < n) {
+        for(int i = 0; i < n; ++i) {
             common = points[i];
             while (i < n - 1 && overlap(common, points[i + 1]) && common[0] <= common[1]) {
                 common[0] = max(common[0], points[i + 1][0]);
                 common[1] = min(common[1], points[i + 1][1]);
                 i++;
             }
-            i++;
             res++;
         }
 

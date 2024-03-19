@@ -56,9 +56,11 @@ impl Solution {
                 return false;
             }
         }
-        return true;
+
+		true
     }
-    pub fn least_interval(tasks: Vec<char>, n: i32) -> i32 {
+
+	pub fn least_interval(tasks: Vec<char>, n: i32) -> i32 {
         let mut freq: Vec<i32> = vec![0; 26];
         for t in tasks {
             freq[t as usize - 'A' as usize] += 1;

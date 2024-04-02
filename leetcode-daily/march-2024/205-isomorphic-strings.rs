@@ -45,7 +45,6 @@ impl Solution {
         let mut s_t_mapping: Vec<char> = vec!['\0'; 128];
         let mut s_mapped: Vec<bool> = vec![false; 128];
         let mut t_mapped: Vec<bool> = vec![false; 128];
-        let mut s_new: Vec<char> = vec![' '; n];
         for i in 0..n {
             if s_t_mapping[s_chars[i] as usize] == '\0' {
                 if s_mapped[s_chars[i] as usize] {
@@ -59,11 +58,7 @@ impl Solution {
                 t_mapped[t_chars[i] as usize] = true;
             }
 
-            s_new[i] = s_t_mapping[s_chars[i] as usize];
-        }
-
-        for i in 0..n {
-            if s_new[i] != t_chars[i] {
+            if s_t_mapping[s_chars[i] as usize] != t_chars[i] {
                 return false;
             }
         }

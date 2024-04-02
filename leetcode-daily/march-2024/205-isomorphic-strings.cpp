@@ -47,7 +47,6 @@ class Solution {
         vector<char> s_t_mapping(128, '\0');
         vector<bool> t_mapped(128, false);
         vector<bool> s_mapped(128, false);
-        string s_new = s;
         for (int i = 0; i < n; ++i) {
             if (s_t_mapping[s[i]] == '\0') {
                 if (t_mapped[t[i]])
@@ -58,9 +57,10 @@ class Solution {
                 t_mapped[t[i]] = true;
                 s_mapped[s[i]] = true;
             }
-            s_new[i] = s_t_mapping[s[i]];
+            if (s_t_mapping[s[i]] != t[i])
+                return false;
         }
-        return s_new == t;
+        return true;
     }
 };
 

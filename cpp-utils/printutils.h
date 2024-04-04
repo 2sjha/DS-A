@@ -29,7 +29,7 @@ template <typename T> void print2Dmatrix(std::vector<std::vector<T>> matrix) {
 template <typename T> void printArray(std::vector<T> arr);
 template <typename T> void printArray(std::vector<T> arr) {
     if (arr.empty()) {
-        std::cout << "Empty!" << std::endl;
+        std::cout << "Empty!" << std::endl << std::endl;
         return;
     }
 
@@ -41,7 +41,7 @@ template <typename T> void printArray(std::vector<T> arr) {
 template <typename T> void printPairArray(std::vector<std::pair<T, T>> arr);
 template <typename T> void printPairArray(std::vector<std::pair<T, T>> arr) {
     if (arr.empty()) {
-        std::cout << "Empty!" << std::endl;
+        std::cout << "Empty!" << std::endl << std::endl;
         return;
     }
 
@@ -61,12 +61,12 @@ struct ListNode {
 void printLinkedList(ListNode *head);
 void printLinkedList(ListNode *head) {
     if (head == NULL) {
-        std::cout << "Empty!" << std::endl;
+        std::cout << "Empty!" << std::endl << std::endl;
         return;
     }
 
-    ListNode* tmp = head;
-    while(tmp != NULL) {
+    ListNode *tmp = head;
+    while (tmp != NULL) {
         std::cout << tmp->val << " ";
         tmp = tmp->next;
     }

@@ -46,7 +46,7 @@ class Solution {
   public:
     string minRemoveToMakeValid(string s) {
         // Process string s, push indices to be removed
-        set<int> remove;
+        unordered_set<int> remove;
         stack<int> st;
         char c;
         for (int i = 0; i < s.length(); ++i) {

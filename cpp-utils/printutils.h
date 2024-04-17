@@ -60,17 +60,46 @@ struct ListNode {
 
 void printLinkedList(ListNode *head);
 void printLinkedList(ListNode *head) {
-    if (head == NULL) {
+    if (head == nullptr) {
         std::cout << "Empty!" << std::endl << std::endl;
         return;
     }
 
     ListNode *tmp = head;
-    while (tmp != NULL) {
+    while (tmp != nullptr) {
         std::cout << tmp->val << " ";
         tmp = tmp->next;
     }
     std::cout << std::endl << std::endl;
 }
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+// Code taken from this stackoverflow post
+// https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
+void printBT(const std::string &prefix, const TreeNode *node, bool isLeft) {
+    if (node != nullptr) {
+        std::cout << prefix;
+
+        std::cout << (isLeft ? "├──" : "└──");
+
+        // print the value of the node
+        std::cout << node->val << std::endl;
+
+        // enter the next tree level - left and right branch
+        printBT(prefix + (isLeft ? "│   " : "    "), node->left, true);
+        printBT(prefix + (isLeft ? "│   " : "    "), node->right, false);
+    }
+}
+
+void printBinaryTree(const TreeNode *node);
+void printBinaryTree(const TreeNode *node) { printBT("", node, false); }
 
 #endif /* PRINTUTILS_H */

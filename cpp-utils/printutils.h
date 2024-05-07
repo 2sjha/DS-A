@@ -26,6 +26,27 @@ template <typename T> void print2Dmatrix(std::vector<std::vector<T>> matrix) {
     std::cout << std::endl;
 };
 
+template <typename T> void print2DPairmatrix(std::vector<std::vector<std::pair<T, T>>> matrix);
+template <typename T> void print2DPairmatrix(std::vector<std::vector<std::pair<T, T>>> matrix) {
+    if (matrix.empty()) {
+        std::cout << "Matrix Empty!" << std::endl;
+        return;
+    }
+
+    for (std::vector<std::pair<T, T>> row : matrix) {
+        if (row.empty()) {
+            std::cout << "Empty!" << std::endl;
+            continue;
+        }
+
+        for (auto val : row) {
+            std::cout << val.first << "," << val.second << "    ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+};
+
 template <typename T> void printArray(std::vector<T> arr);
 template <typename T> void printArray(std::vector<T> arr) {
     if (arr.empty()) {
